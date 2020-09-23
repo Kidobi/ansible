@@ -1,13 +1,8 @@
-- name: Run Updates on all migration servers and wait 60 minutes
-  hosts: migrations
-  connection: winrm
-
+- name:  Windows Update
+  hosts: all
+  gather_facts: false
   tasks:
-    win_updates:
-      category_names:
-        - CriticalUpdates
-        - DefinitionUpdates
-        - SecurityUpdates
-        - Updates
-    reboot: yes
-    reboot_timeout: 3600
+    - name: Running Windows Update
+      win_updates:
+        category_names: ['SecurityUpdates','CriticalUpdates','UpdateRollups', 'Updates', 'DefinitionUpdates']
+        reboot: yes
